@@ -32,6 +32,7 @@ CodeMirror.modeInfo = [
   {name: 'JSON', mime: 'application/json', mode: 'javascript'},
   {name: 'TypeScript', mime: 'application/typescript', mode: 'javascript'},
   {name: 'Jinja2', mime: 'jinja2', mode: 'jinja2'},
+  {name: 'Lasso', mime: 'text/x-lasso', mode: 'lasso'},
   {name: 'LESS', mime: 'text/x-less', mode: 'less'},
   {name: 'LiveScript', mime: 'text/x-livescript', mode: 'livescript'},
   {name: 'Lua', mime: 'text/x-lua', mode: 'lua'},

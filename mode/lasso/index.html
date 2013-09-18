@@ -1,0 +1,99 @@
+<!doctype html>
+
+<title>CodeMirror: Lasso mode</title>
+<meta charset="utf-8"/>
+<link rel=stylesheet href="../../doc/docs.css">
+
+<link rel="stylesheet" href="../../lib/codemirror.css">
+<link rel="stylesheet" href="../../theme/eclipse.css">
+<script src="../../lib/codemirror.js"></script>
+<script src="../../addon/edit/matchbrackets.js"></script>
+<script src="../htmlmixed/htmlmixed.js"></script>
+<script src="../xml/xml.js"></script>
+<script src="../javascript/javascript.js"></script>
+<script src="../css/css.js"></script>
+<script src="../clike/clike.js"></script>
+<script src="lasso.js"></script>
+<style type="text/css">.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}</style>
+<div id=nav>
+  <a href="http://codemirror.net"><img id=logo src="../../doc/logo.png"></a>
+
+  <ul>
+    <li><a href="../../index.html">Home</a>
+    <li><a href="../../doc/manual.html">Manual</a>
+    <li><a href="https://github.com/marijnh/codemirror">Code</a>
+  </ul>
+  <ul>
+    <li><a href="../index.html">Language modes</a>
+    <li><a class=active href="#">Lasso</a>
+  </ul>
+</div>
+
+<article>
+<h2>Lasso mode</h2>
+<form><textarea id="code" name="code">
+// base method
+define xml_rpccall(params = void, method = void, host = void, url = void, uri = void, ...) => {
+    local(myparams = null)
+    local('return' = true)
+    if(local_defined('uri'))
+        local(myhost = #uri)
+    else(local_defined('url'))
+        local(myhost = #url)
+    else(local_defined('host'))
+        local(myhost = #host)
+    else
+        local(myhost = 'http://127.0.0.1/Lasso/RPC.LassoApp')
+    /if
+    if(local_defined('method'))
+        local(mymethod = #method)
+    else
+        local(mymethod = 'test.echo')
+    /if
+    if(local_defined('params'))
+        if(#params->isa(::array))
+            #myparams = #params
+        else
+            #myparams = array(#params)
+        /if
+    else
+        #myparams = array
+    /if
+    error_seterrorcode(0)
+    error_seterrormessage('')
+    protect
+        #return = xml_rpc(#myparams)->call(#myhost, #mymethod)
+        handle_error
+            return 'could not execute xml_rpc->call method in xml_rpccall'
+        /handle_error
+    /protect
+    if(#return == array)
+        return #return
+    else(#return->type == 'array' && #return->size == 1)
+        return #return->get(1)
+    else
+        return #return
+    /if
+}
+
+</textarea></form>
+
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        matchBrackets: true,
+        mode: "text/x-lasso",
+        theme: "eclipse",
+        indentUnit: 4,
+        indentWithTabs: true,
+        enterMode: "keep",
+        tabMode: "shift"
+      });
+    </script>
+
+    <p>Simple Lasso mode based on
+    the <a href="../clike/">C-like</a> mode. Depends on XML,
+    JavaScript, CSS, HTMLMixed, and C-like modes.</p>
+
+    <p><strong>MIME types defined:</strong> <code>application/x-httpd-lasso</code> (HTML with Lasso code), <code>text/x-lasso</code> (plain, non-wrapped Lasso code).</p>
+  </article>
