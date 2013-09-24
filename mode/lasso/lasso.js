@@ -27,8 +27,8 @@
       'bw nbw ew new cn ncn lt lte gt gte eq neq rx nrx ft'),
     builtin: words(
       'array date decimal duration integer map pair string tag xml null ' +
-      'list queue set stack staticarray local var variable global data ' +
-      'self inherited'),
+      'bytes list queue set stack staticarray tie local var variable ' +
+      'global data self inherited'),
     blockKeywords: words(
       'case do else handle handle_failure if inline iterate loop protect ' +
       'provide records require split_thread thread trait type while '),
